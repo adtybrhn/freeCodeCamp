@@ -1,31 +1,23 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
 body {
-	color: #222;
-	background-color: #eee;
-	font-family: sans-serif;
-	text-align: center;
+  padding: 10px;
 }
-#tn {
-	margin-top:30px;
+
+.issue {
+  margin: 20px;
+  padding: 5px;
+  width: 60%;
+  border: 2px solid black;
 }
-h1 {
-	margin-bottom: 40px;
+
+.closed {
+  background-color: lightgrey;
 }
-#tn span {
-	font-weight: bold;
-}
-.pane {
-	border: solid 1px #999;
-	border-radius: 10px;
-	max-width: 650px;
-	margin: 10px auto;
-	padding: 10px;
-	box-sizing: border-box;
-}
-.specs {
-	font-family: monospace;
-	font-size: 1.1em;
-	margin: 10px auto;
-	text-align: left;
-	padding-left: 10px;
-	color: #555;
+
+.id {
+  font-size: 10.5px;
 }
