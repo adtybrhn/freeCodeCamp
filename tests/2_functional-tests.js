@@ -1,8 +1,6 @@
 const chai = require("chai");
 const assert = chai.assert;
-
 const server = require("../server");
-
 const chaiHttp = require("chai-http");
 chai.use(chaiHttp);
 
@@ -62,7 +60,7 @@ suite("Functional Tests", function () {
 });
 
 const Browser = require("zombie");
-Browser.site = "localhost:3000";
+Browser.site = "localhost:5000";
 
 suite("Functional Tests with Zombie.js", function () {
   const browser = new Browser();
@@ -72,21 +70,32 @@ suite("Functional Tests with Zombie.js", function () {
 
   suite('"Famous Italian Explorers" form', function () {
     // #5
-    test('submit "surname" : "Colombo" - write your e2e test...', async function () {
-      await browser.fill("surname", "Colombo");
-      await browser.pressButton("submit");
+    test('Submit the surname "Colombo" in the HTML form', function (done) {
+      // Fill in the form with the surname "Colombo"
+      browser.fill("surname", "Colombo");
 
-      browser.assert.success();
-      browser.assert.text("span#name", "Cristoforo");
-      browser.assert.text("span#surname", "Colombo");
-      browser.assert.elements("span#dates", 1);
+      // Press the submit button
+      browser.pressButton("submit", function () {
+        // Assert that status is OK (200)
+        browser.assert.status(200);
+
+        // Assert that the text inside the element span#name is 'Cristoforo'
+        browser.assert.text("span#name", "Cristoforo");
+
+        // Assert that the text inside the element span#surname is 'Colombo'
+        browser.assert.text("span#surname", "Colombo");
+
+        // Assert that the element(s) span#dates exist and their count is 1
+        browser.assert.elements("span#dates", 1);
+
+        done();
+      });
+      // Do not forget to remove the assert.fail() call
     });
-
     // #6
     test('submit "surname" : "Vespucci" - write your e2e test...', async function () {
       await browser.fill("surname", "Vespucci");
       await browser.pressButton("submit");
-
       browser.assert.success();
       browser.assert.text("span#name", "Amerigo");
       browser.assert.text("span#surname", "Vespucci");
